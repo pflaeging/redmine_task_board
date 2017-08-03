@@ -62,10 +62,12 @@ class TaskboardController < ApplicationController
     end
   end
 
+# for now, archiving is problematic, because you can't find the archived issues (PP) 3/8/2017
   def archive_issues
     if User.current.allowed_to?(:edit_issues, @project)
       params[:ids].each do |issue_id|
-        TaskBoardIssue.find_by_issue_id(issue_id).update_attribute(:is_archived, true)
+#        TaskBoardIssue.find_by_issue_id(issue_id).update_attribute(:is_archived, true)
+          nil
       end
       respond_to do |format|
         format.js{ head :ok }
@@ -75,7 +77,8 @@ class TaskboardController < ApplicationController
 
   def unarchive_issue
     if User.current.allowed_to?(:edit_issues, @project)
-      TaskBoardIssue.find_by_issue_id(params[:issue_id]).update_attribute(:is_archived, false)
+#      TaskBoardIssue.find_by_issue_id(params[:issue_id]).update_attribute(:is_archived, false)
+          nil
       respond_to do |format|
         format.js{ head :ok }
       end
