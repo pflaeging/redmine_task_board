@@ -27,7 +27,8 @@ class TaskboardController < ApplicationController
     if params[:move] then
       params[:move].each do |issue_id, new_status_id|
         issue = Issue.find(issue_id)
-        if issue.new_statuses_allowed_to(User.current).include?(IssueStatus.find(new_status_id))
+        #        if issue.new_statuses_allowed_to(User.current).include?(IssueStatus.find(new_status_id))
+        if User.current.allowed_to?(:edit_issues, @project)
           issue.init_journal(User.current)
           issue.update_attribute(:status_id, new_status_id)
         else
@@ -49,12 +50,12 @@ class TaskboardController < ApplicationController
         if failed_issues.empty?
           head :ok
         else
-          response = failed_issues.map do |issue|
-            cards = TaskBoardIssue.find_all_by_issue_id(Project.all.first.issues.where(:status_id => issue.status_id)).sort{|a,b| a.project_weight <=> b.project_weight}
-            index = cards.index{|i| i.issue_id == issue.id}
-            prev_card_id = (index.nil? || index < 1) ? false : cards[index-1].issue_id
-            {:issue_id => issue.id, :status_id => issue.status_id, :previous_sibling_id => prev_card_id}
-          end
+#          response = failed_issues.map do |issue|
+#            cards = TaskBoardIssue.find_all_by_issue_id(Project.all.first.issues.where(:status_id => issue.status_id)).sort{|a,b| a.project_weight <=> b.project_weight}
+#            index = cards.index{|i| i.issue_id == issue.id}
+#            prev_card_id = (index.nil? || index < 1) ? false : cards[index-1].issue_id
+#            {:issue_id => issue.id, :status_id => issue.status_id, :previous_sibling_id => prev_card_id}
+#          end
           render :json => response, :status => 403
         end
       end
@@ -88,7 +89,7 @@ class TaskboardController < ApplicationController
     @column.delete
     render 'settings/update'
   end
-  
+
   def update_columns
     params[:column].each do |column_id, new_state|
       column = TaskBoardColumn.find(column_id.to_i)
