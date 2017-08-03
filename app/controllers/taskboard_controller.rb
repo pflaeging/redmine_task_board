@@ -63,18 +63,22 @@ class TaskboardController < ApplicationController
   end
 
   def archive_issues
-    params[:ids].each do |issue_id|
-      TaskBoardIssue.find_by_issue_id(issue_id).update_attribute(:is_archived, true)
-    end
-    respond_to do |format|
-      format.js{ head :ok }
+    if User.current.allowed_to?(:edit_issues, @project)
+      params[:ids].each do |issue_id|
+        TaskBoardIssue.find_by_issue_id(issue_id).update_attribute(:is_archived, true)
+      end
+      respond_to do |format|
+        format.js{ head :ok }
+      end
     end
   end
 
   def unarchive_issue
-    TaskBoardIssue.find_by_issue_id(params[:issue_id]).update_attribute(:is_archived, false)
-    respond_to do |format|
-      format.js{ head :ok }
+    if User.current.allowed_to?(:edit_issues, @project)
+      TaskBoardIssue.find_by_issue_id(params[:issue_id]).update_attribute(:is_archived, false)
+      respond_to do |format|
+        format.js{ head :ok }
+      end
     end
   end
 
