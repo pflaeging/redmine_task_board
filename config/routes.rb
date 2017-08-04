@@ -11,3 +11,5 @@ post 'issues/:issue_id/taskboard-unarchive', :to => 'taskboard#unarchive_issue'
 post 'projects/:project_id/taskboard/columns/create', :to => 'taskboard#create_column', :as => :project_taskboard_columns_create
 delete 'projects/:project_id/taskboard/columns/:column_id/delete', :to => 'taskboard#delete_column', :as => :project_taskboard_columns_delete
 put 'projects/:project_id/taskboard/columns/update', :to => 'taskboard#update_columns', :as => :project_taskboard_columns_update
+# PP
+put 'projects/:project_id/taskboard/columns/createdefault', :to => 'taskboard#create_defaultcolumns', :as => :project_taskboard_columns_createdefault

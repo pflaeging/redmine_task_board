@@ -85,6 +85,66 @@ class TaskboardController < ApplicationController
     end
   end
 
+# Create a default Column set (PP)
+  def create_defaultcolumns
+    logger.info "Setting Default TaskBoard"
+
+    @state_ids = Hash.new
+    IssueStatus.select([:id, :name]).each do |status|
+      @state_ids[status.name] = status.id
+      logger.info "Status: #{status.name} -> #{status.id}"
+    end
+
+    TaskBoardColumn.where(:project_id => @project.id).all().each do |delproject|
+      logger.info "Delete: #{delproject.title}"
+      delproject.delete
+    end
+
+    @column = TaskBoardColumn.new :project => @project, :title => l(:task_board_default_column_1)
+    @column.save
+    if state = @state_ids[l(:task_board_status_1)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+
+    @column = TaskBoardColumn.new :project => @project, :title => l(:task_board_default_column_2)
+    @column.save
+    if state = @state_ids[l(:task_board_status_2)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+
+    @column = TaskBoardColumn.new :project => @project, :title => l(:task_board_default_column_3)
+    @column.save
+    if state = @state_ids[l(:task_board_status_3)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+
+    @column = TaskBoardColumn.new :project => @project, :title => l(:task_board_default_column_4)
+    @column.save
+    if state = @state_ids[l(:task_board_status_4)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+
+    @column = TaskBoardColumn.new :project => @project, :title => l(:task_board_default_column_5)
+    @column.save
+    if state = @state_ids[l(:task_board_status_5)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+
+    @column = TaskBoardColumn.new :project => @project, :title => l(:task_board_default_column_6)
+    @column.save
+    if state = @state_ids[l(:task_board_status_6)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+    if state = @state_ids[l(:task_board_status_7)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+    if state = @state_ids[l(:task_board_status_8)]
+      StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
+    end
+
+    render 'settings/update'
+  end
+
   def create_column
     @column = TaskBoardColumn.new :project => @project, :title => params[:title]
     @column.save
@@ -100,7 +160,7 @@ class TaskboardController < ApplicationController
   def update_columns
     params[:column].each do |column_id, new_state|
       column = TaskBoardColumn.find(column_id.to_i)
-      print column.title + ' ' + new_state[:weight] + ". "
+      logger.info "Update: #{column.title} #{new_state[:weight]}. "
       column.weight = new_state[:weight].to_i
       column.max_issues = new_state[:max_issues].to_i
       column.save!
@@ -110,6 +170,7 @@ class TaskboardController < ApplicationController
       statuses.each do |status_id, weight|
         status_id = status_id.to_i
         column_id = column_id.to_i
+        logger.info "StatusBucket: #{column_id}, #{status_id}, #{weight}"
         StatusBucket.create!(:task_board_column_id => column_id, :issue_status_id => status_id, :weight => weight)
       end
     end

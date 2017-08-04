@@ -29,3 +29,19 @@ de:
   task_board_status_config_message: Die Taskboard-Spalten durch herüberziehen der Stati konfigurieren.
   task_board_my_board: Mein Task Board
   task_board_title: Task Board
+  task_board_reset: Hier klicken um das Taskboard mit Standarddefinition zu füllen!
+  task_board_default_column_1: Neu
+  task_board_default_column_2: Bereit
+  task_board_default_column_3: In Bearbeitung
+  task_board_default_column_4: Gelöst
+  task_board_default_column_5: Feedback
+  task_board_default_column_6: Geschlossen
+  task_board_status_1: Neu
+  task_board_status_2: Bereit
+  task_board_status_3: In Bearbeitung
+  task_board_status_4: Gelöst
+  task_board_status_5: Feedback
+  task_board_status_6: Erledigt
+  task_board_status_7: Abgewiesen
+  task_board_status_8: Gemerkt
+  task_board_empty_message: Taskboard ist nicht definiert. Bitte als Besitzer des Bereichs unter "Konfiguration -> Stickie~Board" einrichten!

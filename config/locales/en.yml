@@ -28,3 +28,19 @@ en:
   task_board_status_config_message: Configure the taskboard columns by dragging statuses to them.
   task_board_my_board: My Task Board
   task_board_title: Task Board
+  task_board_reset: Click herer to create standard taskboard?
+  task_board_default_column_1: New
+  task_board_default_column_2: Ready
+  task_board_default_column_3: Working
+  task_board_default_column_4: Solved
+  task_board_default_column_5: Feedback
+  task_board_default_column_6: Closed
+  task_board_status_1: Neu
+  task_board_status_2: Bereit
+  task_board_status_3: In Bearbeitung
+  task_board_status_4: Gelöst
+  task_board_status_5: Feedback
+  task_board_status_6: Erledigt
+  task_board_status_7: Abgewiesen
+  task_board_status_8: Gemerkt
+  task_board_empty_message: Taskboard not defined. Please define it under "Configuration -> Stickie~Board" as owner!

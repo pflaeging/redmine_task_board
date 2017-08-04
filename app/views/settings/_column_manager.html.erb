@@ -6,6 +6,18 @@
   </p>
 <% end %>
 
+
+  <div class=warning>
+    <%= link_to(
+      l(:task_board_reset),
+      project_taskboard_columns_createdefault_path(:project_id => @project.id),
+      :method => :put,
+      :confirm => l(:text_are_you_sure),
+      :remote => true,
+      :class => 'icon icon-warning'
+      ) %>
+  </div>
+
 <%= form_tag project_taskboard_columns_update_path(:project_id => @project.id), :method => 'put', :remote => true do %>
   <div class="status-bucket column">
     <h5><%= translate(:task_board_available_status) %></h5>

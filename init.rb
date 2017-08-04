@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_task_board do
   name 'Redmine Task Board'
   author 'Austin Smith'
   description 'Add a Kanban-style task board tab to projects'
-  version '0.5'
+  version '0.7'
   url 'https://github.com/netaustin/redmine_task_board'
   author_url 'http://www.alleyinteractive.com/'
 
@@ -19,7 +19,7 @@ Redmine::Plugin.register :redmine_task_board do
            }
 
   project_module :taskboard do
-    permission :edit_taskboard, {:projects => :settings, :taskboard => [:create_column, :delete_column, :update_columns]}, :require => :member
+    permission :edit_taskboard, {:projects => :settings, :taskboard => [:create_column, :delete_column, :update_columns, :create_defaultcolumns]}, :require => :member
     permission :view_taskboard, {:taskboard => [:index, :save, :archive_issues, :unarchive_issue]}, :require => :member
   end
   menu :top_menu, :taskboard, { :controller => 'my_taskboard', :action => 'my_index' }, :caption => :task_board_my_board, :before => :projects
