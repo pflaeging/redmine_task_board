@@ -28,7 +28,7 @@ en:
   task_board_status_config_message: Configure the taskboard columns by dragging statuses to them.
   task_board_my_board: My Task Board
   task_board_title: Task Board
-  task_board_reset: Click herer to create standard taskboard?
+  task_board_reset: Click here to create a standard taskboard!
   task_board_default_column_1: New
   task_board_default_column_2: Ready
   task_board_default_column_3: Working
