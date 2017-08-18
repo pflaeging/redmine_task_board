@@ -15,6 +15,7 @@ class MyTaskboardController < ApplicationController
           issues.status_id,
           projects.name as project_name,
           trackers.name as tracker_name,
+          trackers.id as tracker_id,
           issue_priority.name as priority_name,
           issue_priority.id as priority_id,
           projects.id as project_id,

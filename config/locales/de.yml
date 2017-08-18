@@ -21,6 +21,7 @@ de:
   label_task_board_include_subprojects: Unterprojekte inkludieren
   task_board_priority: Priorität
   task_board_project: Projekt
+  task_board_version: Version
   task_board_any: Alles
   task_board_anyone: Alle
   task_board_category: Kategorie

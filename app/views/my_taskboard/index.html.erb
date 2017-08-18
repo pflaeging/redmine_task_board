@@ -23,7 +23,7 @@
 
             <div class="issue">
               <div class="issue-heading">
-                <p class="issue-number meta">
+                <p class="issue-number meta <%= "tracker-#{issue.tracker_id.to_s}" %>">
                   <input type="checkbox" name="ids[]" value="<%= issue.id.to_s %>" />
                   <%= link_to "#{issue.tracker_name} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %>
                 </p>
@@ -47,9 +47,9 @@
         <li class="card priority-<%= issue.priority.id.to_s %> <%= issue.tracker_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') %>" id="issue_<%= issue.id %>" data-issue-id="<%= issue.id %>" data-priority="<%= issue.priority.id.to_s %>" data-status-id="<%= issue.status_id %>" data-project="<%= issue.project.id.to_s %>">
             <div class="issue">
               <div class="issue-heading">
-                <p class="issue-number meta">
+                <p class="issue-number meta <%= "tracker-#{issue.tracker_id.to_s}" %>">
                   <input type="checkbox" name="ids[]" value="<%= issue.id.to_s %>" />
-                  <%= link_to "#{issue.tracker_name} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %>
+                  <%= link_to "#{issue.tracker_name} ##{issue.id.to_s}    ", :controller => :issues, :action => :show, :id => issue.id %>
                 </p>
                 <p class="issue-priority">
                   <%= issue.priority_name %>

@@ -19,6 +19,9 @@
       <%= label_tag "project", l(:task_board_project) %>
       <%= select_tag("project", options_for_select([[l(:task_board_any), '0']] + @project.children.active.collect { |m| [ m.name, m.id ] } )) %>
     <% end %>
+    <%= label_tag "version", l(:task_board_version) %>
+    <%= select_tag("version", options_for_select([[l(:task_board_any), '0']] + @project.versions.collect { |m| [ m.name, m.id ] } )) %>
+
   </p>
 </div>
 
@@ -40,12 +43,12 @@
         <% end %>
         <ul data-status-id="<%= status_id %>" data-max-issues="<%= column.max_issues %>" id="column_<%= status_id %>"<% if issues.empty? %> class="empty"<% end %>>
           <% issues.each do|issue| %>
-            <li class="card priority-<%= issue.priority.id.to_s %> <%= issue.tracker.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') %>" id="issue_<%= issue.id %>" data-issue-id="<%= issue.id %>" data-priority="<%= issue.priority.id.to_s %>" data-assignee="<%= issue.assigned_to ? issue.assigned_to.id.to_s : 0 %>" data-category="<%= issue.category ? issue.category.id.to_s : 0 %>" data-weight="<%= issue.weight %>" data-status-id="<%= issue.status_id %>" data-project="<%= issue.project_id %>">
+            <li class="card priority-<%= issue.priority.id.to_s %> <%= issue.tracker.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') %>" id="issue_<%= issue.id %>" data-issue-id="<%= issue.id %>" data-priority="<%= issue.priority.id.to_s %>" data-assignee="<%= issue.assigned_to ? issue.assigned_to.id.to_s : 0 %>" data-category="<%= issue.category ? issue.category.id.to_s : 0 %>" data-weight="<%= issue.weight %>" data-status-id="<%= issue.status_id %>" data-project="<%= issue.project_id %>" data-version="<%= issue.fixed_version_id ? issue.fixed_version_id : 0 %>">
               <div class="issue">
                 <div class="issue-heading">
-                  <p class="issue-number meta">
+                  <p class="issue-number meta <%= "tracker-#{issue.tracker.id.to_s}" %>">
                     <input type="checkbox" name="ids[]" value="<%= issue.id.to_s %>" />
-                    <%= link_to "#{issue.tracker} ##{issue.id.to_s}", :controller => :issues, :action => :show, :id => issue.id %>
+                    <%= link_to("#{issue.tracker} ##{issue.id.to_s}   ", :controller => :issues, :action => :show, :id => issue.id) %>
                   </p>
                   <p class="issue-priority">
                     <%= issue.priority.name %>
