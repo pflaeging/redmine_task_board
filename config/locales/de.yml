@@ -22,7 +22,7 @@ de:
   task_board_priority: Priorität
   task_board_project: Projekt
   task_board_version: Version
-  task_board_any: Alles
+  task_board_any: Alle
   task_board_anyone: Alle
   task_board_category: Kategorie
   task_board_assignee: Zugewiesen an
@@ -33,16 +33,17 @@ de:
   task_board_reset: Hier klicken um das Taskboard mit Standarddefinition zu füllen!
   task_board_default_column_1: Neu
   task_board_default_column_2: Bereit
-  task_board_default_column_3: In Bearbeitung
-  task_board_default_column_4: Gelöst
-  task_board_default_column_5: Feedback
+  task_board_default_column_3: In Arbeit
+  task_board_default_column_4: Feedback
+  task_board_default_column_5: Gelöst
   task_board_default_column_6: Geschlossen
   task_board_status_1: Neu
   task_board_status_2: Bereit
-  task_board_status_3: In Bearbeitung
-  task_board_status_4: Gelöst
-  task_board_status_5: Feedback
+  task_board_status_3: In Arbeit
+  task_board_status_4: Feedback
+  task_board_status_5: Gelöst
   task_board_status_6: Erledigt
   task_board_status_7: Gemerkt
   task_board_status_8: Abgewiesen
   task_board_empty_message: Taskboard ist nicht definiert. Bitte als Manager des Bereichs unter "Konfiguration -> Stickie~Board" einrichten!
+
