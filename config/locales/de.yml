@@ -43,6 +43,6 @@ de:
   task_board_status_4: Gelöst
   task_board_status_5: Feedback
   task_board_status_6: Erledigt
-  task_board_status_7: Abgewiesen
-  task_board_status_8: Gemerkt
-  task_board_empty_message: Taskboard ist nicht definiert. Bitte als Besitzer des Bereichs unter "Konfiguration -> Stickie~Board" einrichten!
+  task_board_status_7: Gemerkt
+  task_board_status_8: Abgewiesen
+  task_board_empty_message: Taskboard ist nicht definiert. Bitte als Manager des Bereichs unter "Konfiguration -> Stickie~Board" einrichten!
