@@ -1,10 +1,10 @@
 <% if tbi = TaskBoardIssue.find_by_issue_id(@issue.id) and tbi.is_archived? then %>
   <div id="taskboard-issue">
     <hr>
-    <p><strong><%= translate :label_task_board %></strong></p>
+    <p><strong><%= l(:label_task_board) %></strong></p>
     <p>
-      <%= translate :task_board_issue_archived %>
-      <input type="button" id="taskboard-unarchive" value="<%= translate :task_board_issue_unarchive %>" />
+      <%= l(:task_board_issue_archived) %>
+      <input type="button" id="taskboard-unarchive" value="<%= l(:task_board_issue_unarchive) %>" />
     </p>
   </div>
 
