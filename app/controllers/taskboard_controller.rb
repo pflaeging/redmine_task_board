@@ -31,6 +31,10 @@ class TaskboardController < ApplicationController
         if User.current.allowed_to?(:edit_issues, @project)
           issue.init_journal(User.current)
           issue.update_attribute(:status_id, new_status_id)
+          # count transaction if the module project_quota is installed and the method exists
+          if defined? ProjectLimits::add_transaction
+            ProjectLimits::add_transaction(@project)
+          end
         else
           failed_issues << issue
         end
