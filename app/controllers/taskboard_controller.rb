@@ -2,11 +2,19 @@ class TaskboardController < ApplicationController
   unloadable
 
   before_filter :find_project
-  before_filter :authorize
+  # before_filter :authorize
   helper_method :column_manager_locals
   helper TagsHelper if defined?(TagsHelper)
+  helper :queries
+  include QueriesHelper
 
   def index
+    # logger.info("TaskboardController.index: '#{params.inspect}'")
+    retrieve_query
+    if @query.valid?
+      @issues = @query.issues
+      # logger.info "Query: #{@query.issues.inspect} "
+    end
     @columns = TaskBoardColumn.where(:project_id => @project.id).order('weight').all()
     @status_names = Hash.new
     IssueStatus.select([:id, :name]).each do |status|
@@ -21,6 +29,9 @@ class TaskboardController < ApplicationController
     end
     @categories = @project.send(category_finder)
   end
+
+
+
 
   def save
     failed_issues = []
@@ -66,41 +77,18 @@ class TaskboardController < ApplicationController
     end
   end
 
-# for now, archiving is problematic, because you can't find the archived issues (PP) 3/8/2017
-  def archive_issues
-    if User.current.allowed_to?(:edit_issues, @project)
-      params[:ids].each do |issue_id|
-#        TaskBoardIssue.find_by_issue_id(issue_id).update_attribute(:is_archived, true)
-          nil
-      end
-      respond_to do |format|
-        format.js{ head :ok }
-      end
-    end
-  end
-
-  def unarchive_issue
-    if User.current.allowed_to?(:edit_issues, @project)
-#      TaskBoardIssue.find_by_issue_id(params[:issue_id]).update_attribute(:is_archived, false)
-          nil
-      respond_to do |format|
-        format.js{ head :ok }
-      end
-    end
-  end
-
 # Create a default Column set (PP)
   def create_defaultcolumns
-    logger.info "Setting Default TaskBoard"
+    # logger.info "Setting Default TaskBoard"
 
     @state_ids = Hash.new
     IssueStatus.select([:id, :name]).each do |status|
       @state_ids[status.name] = status.id
-      logger.info "Status: #{status.name} -> #{status.id}"
+      # logger.info "Status: #{status.name} -> #{status.id}"
     end
 
     TaskBoardColumn.where(:project_id => @project.id).all().each do |delproject|
-      logger.info "Delete: #{delproject.title}"
+      # logger.info "Delete: #{delproject.title}"
       delproject.delete
     end
 
@@ -162,20 +150,25 @@ class TaskboardController < ApplicationController
   end
 
   def update_columns
-    params[:column].each do |column_id, new_state|
-      column = TaskBoardColumn.find(column_id.to_i)
-      logger.info "Update: #{column.title} #{new_state[:weight]}. "
-      column.weight = new_state[:weight].to_i
-      column.max_issues = new_state[:max_issues].to_i
-      column.save!
-      column.status_buckets.clear()
-    end
-    params[:status].each do |column_id, statuses|
-      statuses.each do |status_id, weight|
-        status_id = status_id.to_i
-        column_id = column_id.to_i
-        logger.info "StatusBucket: #{column_id}, #{status_id}, #{weight}"
-        StatusBucket.create!(:task_board_column_id => column_id, :issue_status_id => status_id, :weight => weight)
+    if params[:column]
+      params[:column].each do |column_id, new_state|
+        column = TaskBoardColumn.find(column_id.to_i)
+        # logger.info "Update: #{column.title} #{new_state[:weight]}. "
+        column.weight = new_state[:weight].to_i
+        column.max_issues = new_state[:max_issues].to_i
+        # logger.info "++PP: update:_columns: #{column.title} #{column.inspect}. "
+        column.save!
+        column.status_buckets.clear()
+      end
+      if params[:status]
+        params[:status].each do |column_id, statuses|
+          statuses.each do |status_id, weight|
+            status_id = status_id.to_i
+            column_id = column_id.to_i
+            # logger.info "---PP: StatusBucket column:#{column_id}, issue_status#{status_id}, weight:#{weight}"
+            StatusBucket.create!(:task_board_column_id => column_id, :issue_status_id => status_id, :weight => weight)
+          end
+        end
       end
     end
     render 'settings/update'

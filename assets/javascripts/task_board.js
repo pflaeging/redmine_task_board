@@ -17,7 +17,7 @@
           return function() {
             var tmp = this._super;
             this._super = _super[name];
-            var ret = fn.apply(this, arguments);        
+            var ret = fn.apply(this, arguments);
             this._super = tmp;
             return ret;
           };
@@ -31,7 +31,7 @@
     Class.prototype = prototype;
     Class.prototype.constructor = Class;
     Class.extend = arguments.callee;
-   
+
     return Class;
   };
 })();
@@ -76,11 +76,11 @@ var TaskBoardFilters = Class.extend({
 });
 
 var TaskBoardSortable = Class.extend({
-  
+
   sortable: null,
   id: null,
   options: {},
-  
+
   init: function(id, options) {
     this.id = id;
     this.options = options;
@@ -89,7 +89,7 @@ var TaskBoardSortable = Class.extend({
     this.root = $('#' + this.id);
     this.root.sortable(this.options);
   },
-  
+
   onChange: function() { },
 
   onUpdate: function() { }
@@ -268,8 +268,8 @@ var TaskBoardUtils = {
   checkboxListener: function() {
     TaskBoardUtils.hideButtonsIfNoneChecked();
     $(document).on('click', '.card input[type="checkbox"]', function() {
-      if (!$('#taskboard-buttons').is(':visible') && this.checked) {
-        $('#taskboard-buttons').show();
+      if (!$('#taskboard-buttons2').is(':visible') && this.checked) {
+        $('#taskboard-buttons2').show();
       }
       if (!this.checked) {
         TaskBoardUtils.hideButtonsIfNoneChecked();
@@ -308,7 +308,7 @@ var TaskBoardUtils = {
       }
     });
     if (!found_checked) {
-      $('#taskboard-buttons').hide();
+      $('#taskboard-buttons2').hide();
     }
   },
 
@@ -324,7 +324,7 @@ var TaskBoardUtils = {
 }
 
 var TaskBoardSettings = TaskBoardSortable.extend({
-  
+
   onUpdate: function(e, ui) {
     var weight = 0;
     var self = this;
