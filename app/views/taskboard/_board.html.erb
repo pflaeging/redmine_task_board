@@ -21,9 +21,9 @@
         <% unless column.issues.size == 1 %>
           <h3 class="status"><%= @status_names[status_id] %></h3>
         <% end %>
-        <ul id="column_<%= status_id %>"<% if issues.empty? %> class="empty"<% end %>>
+        <ul data-status-id="<%= status_id %>" data-max-issues="<%= column.max_issues %>" id="column_<%= status_id %>"<% if issues.empty? %> class="empty"<% end %>>
           <% issues.each do|issue| %>
-            <li class="card priority-<%= issue.priority.id.to_s %> <%= issue.tracker.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') %> hascontextmenu" id="issue-<%= issue.id %>">
+            <li class="card priority-<%= issue.priority.id.to_s %> <%= issue.tracker.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') %>" id="issue_<%= issue.id %>" data-issue-id="<%= issue.id %>" data-priority="<%= issue.priority.id.to_s %>" data-assignee="<%= issue.assigned_to ? issue.assigned_to.id.to_s : 0 %>" data-category="<%= issue.category ? issue.category.id.to_s : 0 %>" data-weight="<%= issue.weight %>" data-status-id="<%= issue.status_id %>" data-project="<%= issue.project_id %>" data-version="<%= issue.fixed_version_id ? issue.fixed_version_id : 0 %>">
               <div class="issue">
                 <div class="issue-heading">
                   <p class="issue-number meta <%= "tracker-#{issue.tracker.id.to_s}" %>">
