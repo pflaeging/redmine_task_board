@@ -1,5 +1,9 @@
 require 'redmine'
-require 'redmine_task_board_hook_listener'
+# require 'redmine_task_board/patches'
+#
+# ActionDispatch::Callbacks.to_prepare do
+#   require_dependency 'redmine_task_board/patches'
+# end
 
 Rails.configuration.to_prepare do
   require_dependency 'projects_helper'
@@ -23,3 +27,7 @@ Redmine::Plugin.register :redmine_task_board do
   end
   menu :project_menu, :taskboard, { :controller => 'taskboard', :action => 'index' }, :caption => :task_board_title, :before => :issues, :param => :project_id
 end
+
+
+# Hooks
+# require 'redmine_task_board/hooks'

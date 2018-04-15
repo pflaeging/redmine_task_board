@@ -2,7 +2,7 @@
 # See: http://guides.rubyonrails.org/routing.html
 
 get 'projects/:project_id/taskboard', :to => 'taskboard#index', :as => :project_taskboard
-get '/taskboard', :to => 'taskboard#index', :as=> :taskboard
+# get '/taskboard', :to => 'taskboard#index', :as=> :taskboard
 post 'projects/:project_id/taskboard/save', :to => 'taskboard#save'
 post 'projects/:project_id/taskboard/columns/create', :to => 'taskboard#create_column', :as => :project_taskboard_columns_create
 delete 'projects/:project_id/taskboard/columns/:column_id/delete', :to => 'taskboard#delete_column', :as => :project_taskboard_columns_delete
