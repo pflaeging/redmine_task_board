@@ -13,7 +13,9 @@ module RedmineTaskBoardSettingsPatch
     # Adds a task board tab to the user administration page
     def project_settings_tabs_with_taskboard_tab
       tabs = project_settings_tabs_without_taskboard_tab
-      if @project.allows_to?({ :controller => "taskboard", :action => "index" }) then
+      is_allowed = User.current.allowed_to?(:edit_taskboard, @project)
+      # logger.info("++PP: taskboard_tab: #{is_allowed.inspect}")
+      if is_allowed then
         tabs << { :name => 'taskboard', :partial => 'settings/project', :label => :label_task_board}
       end
       return tabs

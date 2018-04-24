@@ -78,8 +78,10 @@ class TaskboardController < ApplicationController
   end
 
 # Create a default Column set (PP)
-  def create_defaultcolumns
-    # logger.info "Setting Default TaskBoard"
+  def make_columns(project)
+    #logger.info "++ PP: Setting Default TaskBoard"
+
+    @project = project
 
     @state_ids = Hash.new
     IssueStatus.select([:id, :name]).each do |status|
@@ -133,7 +135,10 @@ class TaskboardController < ApplicationController
     if state = @state_ids[l(:task_board_status_8)]
       StatusBucket.create!(:task_board_column_id => @column.id, :issue_status_id => state, :weight => 0)
     end
+  end
 
+  def create_defaultcolumns
+    make_columns(@project)
     render 'settings/update'
   end
 

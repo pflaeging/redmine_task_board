@@ -40,6 +40,11 @@ module TaskboardHelper
     return retval
   end
 
+  def create_defaults(project)
+    x = TaskboardController.new()
+    x.make_columns(project)
+  end
+
   def _project_taskboard_path(project, *args)
     project ? project_taskboard_path(project, *args) : taskboard_path(*args)
   end
