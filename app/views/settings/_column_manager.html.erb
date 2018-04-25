@@ -1,21 +1,13 @@
+<%= l(:task_board_help) %>
 <%= form_tag project_taskboard_columns_create_path(:project_id => @project.id), :remote => true, :id => 'create-column' do %>
+<div>
   <p>
-    <%= label_tag(:title, l(:task_board_column_title)) %>
-    <%= text_field_tag(:title) %>
-    <%= submit_tag(l(:task_board_create_column)) %>
+      <%= label_tag(:title, l(:task_board_column_title)) %>
+      <%= text_field_tag(:title) %>
+      <%= submit_tag(l(:task_board_create_column)) %>
   </p>
+</div>
 <% end %>
-
-
-  <div class=warning>
-    <%= link_to(
-      l(:task_board_reset),
-      project_taskboard_columns_createdefault_path(:project_id => @project.id),
-      :method => :put,
-      :confirm => l(:text_are_you_sure),
-      :remote => true,
-      ) %>
-  </div>
 
 <%= form_tag project_taskboard_columns_update_path(:project_id => @project.id), :method => 'put', :remote => true do %>
   <div class="status-bucket column">
@@ -45,8 +37,6 @@
             )
           %>
           <p class="cell">
-            <%= label_tag("column[#{column.id}][max_issues]", l(:task_board_task_limit)) %>
-            <%= text_field_tag("column[#{column.id}][max_issues]", column.max_issues, :class => 'column-max-issues') %>
             <%= hidden_field_tag("column[#{column.id}][weight]", column.weight, :class => 'column-weight') %>
           </p>
         </div>
@@ -64,7 +54,17 @@
   </div>
 <% end %>
 
+<div class=warning style="width: fit-content; margin-top: 1em">
+  <%= link_to(
+    l(:task_board_reset),
+    project_taskboard_columns_createdefault_path(:project_id => @project.id),
+    :method => :put,
+    :confirm => l(:text_are_you_sure),
+    :remote => true,
+    ) %>
+</div>
+
 <script type="text/javascript">
-  var taskboard_columns = new TaskBoardSettings('taskboard-columns', {tag: 'div', items: '> div.column', handle: 'h5', weightSelector: '.column-options .column-weight', axis: 'x'});
+  var taskboard_columns = new TaskBoardSettings('taskboard-columns', {tag: 'div', items: '> div.column', handle: 'h5', weightSelector: '.column-weight', axis: 'x'});
   var taskboard_statuses = new TaskBoardStatuses('status-holder', {connectWith: '.status-holder'});
 </script>
